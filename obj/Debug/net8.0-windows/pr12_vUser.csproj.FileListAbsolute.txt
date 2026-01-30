@@ -1,0 +1,9 @@
+C:\Users\DNS\OneDrive\Рабочий стол\Доделывать\pr12_vUser\obj\Debug\net8.0-windows\pr12_vUser.csproj.AssemblyReference.cache
+C:\Users\DNS\OneDrive\Рабочий стол\Доделывать\pr12_vUser\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\DNS\OneDrive\Рабочий стол\Доделывать\pr12_vUser\obj\Debug\net8.0-windows\Pages\MainPage.g.cs
+C:\Users\DNS\OneDrive\Рабочий стол\Доделывать\pr12_vUser\obj\Debug\net8.0-windows\Pages\UserFormPage.g.cs
+C:\Users\DNS\OneDrive\Рабочий стол\Доделывать\pr12_vUser\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\DNS\OneDrive\Рабочий стол\Доделывать\pr12_vUser\obj\Debug\net8.0-windows\pr12_vUser_Content.g.cs
+C:\Users\DNS\OneDrive\Рабочий стол\Доделывать\pr12_vUser\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Users\DNS\OneDrive\Рабочий стол\Доделывать\pr12_vUser\obj\Debug\net8.0-windows\pr12_vUser_MarkupCompile.cache
+C:\Users\DNS\OneDrive\Рабочий стол\Доделывать\pr12_vUser\obj\Debug\net8.0-windows\pr12_vUser_MarkupCompile.lref
