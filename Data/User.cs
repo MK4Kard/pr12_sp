@@ -42,5 +42,12 @@ namespace pr12_vUser.Data
             get => _password;
             set => SetProperty(ref _password, value);
         }
+
+        private DateTime _createdAt = DateTime.Now;
+        public DateTime CreatedAt
+        {
+            get => _createdAt;
+            set => SetProperty(ref _createdAt, value);
+        }
     }
 }

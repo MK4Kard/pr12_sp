@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+
+namespace pr12_vUser.ValidationRules
+{
+    public class DateValidation : ValidationRule
+    {
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            var input = (value ?? "").ToString().Trim();
+
+            if (!DateTime.TryParse(input, out DateTime dateValue))
+            {
+                return new ValidationResult(false, "Необходимо ввести дату");
+            }
+
+            if (dateValue < new DateTime(1990, 01, 01) || dateValue > DateTime.Now)
+            {
+                return new ValidationResult(false, "Некоректная дата");
+            }
+
+            return ValidationResult.ValidResult;
+        }
+    }
+}

@@ -24,7 +24,8 @@ namespace pr12_vUser.Data
                 Login = user.Login,
                 Name = user.Name,
                 Email = user.Email,
-                Password = user.Password
+                Password = user.Password,
+                CreatedAt = user.CreatedAt
             };
             _db.Add<User>(_user);
             Commit();

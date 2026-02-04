@@ -1,4 +1,5 @@
 ﻿using pr12_vUser.Data;
+using pr12_vUser.ValidationRules;
 using System;
 using System.Collections.Generic;
 using System.Linq;

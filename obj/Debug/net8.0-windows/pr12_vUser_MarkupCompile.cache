@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\DNS\OneDrive\Рабочий стол\Доделывать\pr12_vUser\obj\Debug\net8.0-windows\
+C:\Users\DNS\OneDrive\Рабочий стол\Доделывать\pr12_sp\obj\Debug\net8.0-windows\
 pr12_vUser
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-C:\Users\DNS\OneDrive\Рабочий стол\Доделывать\pr12_vUser\App.xaml
+C:\Users\DNS\OneDrive\Рабочий стол\Доделывать\pr12_sp\App.xaml
 3585434872
 221065035267
-20-1479951618
+221938936732
 231485286406
 MainWindow.xaml;Pages\MainPage.xaml;Pages\UserFormPage.xaml;
 
-True
+False
 
