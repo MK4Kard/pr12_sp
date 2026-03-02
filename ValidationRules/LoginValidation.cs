@@ -11,6 +11,7 @@ namespace pr12_vUser.ValidationRules
 {
     public class LoginValidation : ValidationRule
     {
+        public bool IsEdit { get; set; } = false;
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             var input = (value ?? "").ToString().Trim();
@@ -24,7 +25,7 @@ namespace pr12_vUser.ValidationRules
 
             bool loginUnique = db.Users.Any(l => l.Login.ToLower() == input.ToLower());
 
-            if (loginUnique)
+            if (loginUnique && !IsEdit)
             {
                 return new ValidationResult(false, "Такой логин уже существует");
             }

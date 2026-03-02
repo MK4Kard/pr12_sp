@@ -1,4 +1,5 @@
 ﻿using pr12_vUser.Data;
+using pr12_vUser.Services;
 using pr12_vUser.ValidationRules;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,16 @@ namespace pr12_vUser.Pages
             {
                 _user = _editUser;
                 isEdit = true;
+                log.IsEdit = isEdit;
+                mail.IsEdit = isEdit;
+
+                if (_user.UserProfile != null)
+                {
+                    panel.Visibility = Visibility.Visible;
+                    openBtn.Content = "Убрать профиль";
+                }
             }
+
             DataContext = _user;
         }
 
@@ -49,6 +59,22 @@ namespace pr12_vUser.Pages
         private void back(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void open_Click(object sender, RoutedEventArgs e)
+        {
+            if (panel.Visibility == Visibility.Hidden)
+            {
+                panel.Visibility = Visibility.Visible;
+                _user.UserProfile = new();
+                openBtn.Content = "Убрать профиль";
+            }
+            else
+            {
+                panel.Visibility = Visibility.Hidden;
+                _user.UserProfile = null;
+                openBtn.Content = "Добавить профиль";
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using pr12_vUser.Data;
+using pr12_vUser.Services;
 using pr12_vUser.ValidationRules;
 using System;
 using System.Collections.Generic;
@@ -55,6 +56,11 @@ namespace pr12_vUser.Pages
             {
                 service.Remove(user);
             }
+        }
+
+        private void roles(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new RoleList());
         }
     }
 }

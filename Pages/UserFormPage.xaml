@@ -3,17 +3,25 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:m="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:pr12_vUser.Pages"
       xmlns:validators="clr-namespace:pr12_vUser.ValidationRules"
       xmlns:converters="clr-namespace:pr12_vUser.Converters"
+      xmlns:services="clr-namespace:pr12_vUser.Services"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="UserFormPage">
     <Page.Resources>
         <converters:InverseAndBooleansToBooleanConverter x:Key="boolConverter"/>
+        <converters:DateConverter x:Key="dateConventer"/>
+        <services:RoleService x:Key="rService"/>
     </Page.Resources>
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="350"/>
+        </Grid.ColumnDefinitions>
         <StackPanel>
             <StackPanel>
                 <Label>Логин</Label>
@@ -23,7 +31,7 @@
                             <Binding.ValidationRules>
                                 <validators:EmptyValidation
                                     ValidatesOnTargetUpdated="True"/>
-                                <validators:LoginValidation
+                                <validators:LoginValidation x:Name="log"
                                     ValidatesOnTargetUpdated="True"/>
                             </Binding.ValidationRules>
                         </Binding>
@@ -51,7 +59,7 @@
                             <Binding.ValidationRules>
                                 <validators:EmptyValidation
                                     ValidatesOnTargetUpdated="True"/>
-                                <validators:EmailValidation
+                                <validators:EmailValidation x:Name="mail"
                                     ValidatesOnTargetUpdated="True"/>
                             </Binding.ValidationRules>
                         </Binding>
@@ -73,19 +81,84 @@
                     </TextBox.Text>
                 </TextBox>
             </StackPanel>
-            <StackPanel Margin="0 15 0 0">
-                <Button Content="Сохранить в БД" Click="save">
-                    <Button.IsEnabled>
-                        <MultiBinding Converter="{StaticResource boolConverter}">
-                            <Binding ElementName="pass" Path="(Validation.HasError)"/>
-                            <Binding ElementName="name" Path="(Validation.HasError)"/>
-                            <Binding ElementName="login" Path="(Validation.HasError)"/>
-                            <Binding ElementName="email" Path="(Validation.HasError)"/>
-                        </MultiBinding>
-                    </Button.IsEnabled>
-                </Button>
-                <Button Click="back">Назад</Button>
+            <StackPanel Margin="0 10 0 0">
+                <Label>Роль</Label>
+                <ComboBox ItemsSource="{Binding Source={StaticResource rService}, Path=Roles}"
+                          DisplayMemberPath="Title" Margin="5"                          
+                          SelectedItem="{Binding Role}"
+                          m:HintAssist.Hint="Выберите роль"/>
             </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <StackPanel Margin="0 10 0 0">
+                <Button Click="open_Click" x:Name="openBtn" Content="Добавить профиль"/>
+            </StackPanel>
+            <StackPanel x:Name="panel" Visibility="Hidden">
+                <StackPanel Margin="0 10 0 0">
+                    <Label>Ссылка на изображение</Label>
+                    <TextBox x:Name="avatarUrl">
+                        <TextBox.Text>
+                            <Binding Path="UserProfile.AvatarUrl" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validators:ImageValidation
+                                        ValidatesOnTargetUpdated="True"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </StackPanel>
+                <StackPanel Margin="0 10 0 0">
+                    <Label>Номер телефона</Label>
+                    <TextBox x:Name="phone">
+                        <TextBox.Text>
+                            <Binding Path="UserProfile.Phone" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validators:PhoneValidation x:Name="phoneV"
+                                        ValidatesOnTargetUpdated="True"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </StackPanel>
+                <StackPanel Margin="0 10 0 0">
+                    <Label>Дата рождения</Label>
+                    <DatePicker Margin="5" x:Name="birthday">
+                        <DatePicker.SelectedDate>
+                            <Binding Path="UserProfile.Birthday" UpdateSourceTrigger="PropertyChanged"
+                                     Converter="{StaticResource dateConventer}">
+                                <Binding.ValidationRules>
+                                    <validators:DateValidation x:Name="date"
+                                        ValidatesOnTargetUpdated="True"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </DatePicker.SelectedDate>
+                    </DatePicker>
+                </StackPanel>
+                <StackPanel Margin="0 10 0 0">
+                    <Label>Краткое описание</Label>
+                    <TextBox x:Name="bio">
+                        <TextBox.Text>
+                            <Binding Path="UserProfile.Bio" UpdateSourceTrigger="PropertyChanged"/>
+                        </TextBox.Text>
+                    </TextBox>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+            <Button x:Name="saveBtn" Content="Сохранить в БД" Click="save">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource boolConverter}">
+                        <Binding ElementName="pass" Path="(Validation.HasError)"/>
+                        <Binding ElementName="name" Path="(Validation.HasError)"/>
+                        <Binding ElementName="login" Path="(Validation.HasError)"/>
+                        <Binding ElementName="email" Path="(Validation.HasError)"/>
+                        <Binding ElementName="avatarUrl" Path="(Validation.HasError)"/>
+                        <Binding ElementName="phone" Path="(Validation.HasError)"/>
+                        <Binding ElementName="birthday" Path="(Validation.HasError)"/>
+                    </MultiBinding>
+                </Button.IsEnabled>
+            </Button>
+            <Button Click="back">Назад</Button>
         </StackPanel>
     </Grid>
 </Page>

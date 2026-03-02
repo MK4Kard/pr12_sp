@@ -3,36 +3,73 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:converters="clr-namespace:pr12_vUser.Converters"
       xmlns:local="clr-namespace:pr12_vUser.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
       Title="MainPage">
-
+    <Page.Resources>
+        <converters:DateConverter x:Key="dateConventer"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="45"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
             <Button Click="go_form">Добавить</Button>
             <Button Click="remove">Удалить</Button>
+            <Button Click="roles">Роли</Button>
         </StackPanel>
         <ListView Grid.Row="1"
                   ItemsSource="{Binding service.Users}"
                   MouseDoubleClick="Edit"
-                  SelectedItem="{Binding user}">
+                  SelectedItem="{Binding user}" Foreground="#FF9DFF50">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Login}"/>
-                            <TextBlock Text="{Binding Name}"/>
-                            <TextBlock Text="{Binding Email}"/>
-                            <TextBlock Text="{Binding Password}"/>
-                            <TextBlock Text="{Binding CreatedAt, StringFormat={}{0:dd-MM-yyyy HH:mm:ss}}"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition MinWidth="350"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Stretch="UniformToFill"
+                               Margin="10" Width="120">
+                            <Image.Source>
+                                <Binding Path="UserProfile.AvatarUrl">
+                                    <Binding.TargetNullValue>
+                                        <ImageSource>C:\Users\DNS\OneDrive\Рабочий стол\Доделывать\pr12_trpo_orig\no-image.jpg</ImageSource>
+                                    </Binding.TargetNullValue>
+                                </Binding>
+                            </Image.Source>
+                        </Image>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="{Binding Login}" Foreground="Black"/>
+                            <TextBlock Text="{Binding Name}" Foreground="Black"/>
+                            <TextBlock Text="{Binding Email}" Foreground="Black"/>
+                            <TextBlock Text="{Binding Password}" Foreground="Black"/>
+                            <TextBlock Text="{Binding CreatedAt, StringFormat={}{0:dd-MM-yyyy HH:mm:ss}}" Foreground="Black"/>
+                            <TextBlock Foreground="Black">
+                                <Run Text="Роль: "/>
+                                <Run Text="{Binding Role.Title}"/>
+                            </TextBlock>
                         </StackPanel>
-                    </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Foreground="Black">
+                                <Run Text="Номер телефона: "/>
+                                <Run Text="{Binding UserProfile.Phone}"/>
+                            </TextBlock>
+                            <TextBlock Foreground="Black">
+                                <Run Text="Дата рождения: "/>
+                                <Run Text="{Binding UserProfile.Birthday, Converter={StaticResource dateConventer}, StringFormat={}{0:dd-MM-yyyy}}"/>
+                            </TextBlock>
+                            <TextBlock Foreground="Black">
+                                <Run Text="Краткое описание: "/>
+                                <Run Text="{Binding UserProfile.Bio}"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

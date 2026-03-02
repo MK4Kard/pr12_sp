@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -14,14 +15,17 @@ namespace pr12_vUser.ValidationRules
         {
             var input = (value ?? "").ToString().Trim();
 
-            if (!DateTime.TryParse(input, out DateTime dateValue))
+            if (!input.IsNullOrEmpty())
             {
-                return new ValidationResult(false, "Необходимо ввести дату");
-            }
+                if (!DateTime.TryParse(input, out DateTime dateValue))
+                {
+                    return new ValidationResult(false, "Необходимо ввести дату");
+                }
 
-            if (dateValue < new DateTime(1990, 01, 01) || dateValue > DateTime.Now)
-            {
-                return new ValidationResult(false, "Некоректная дата");
+                if (dateValue < new DateTime(1990, 01, 01) || dateValue > DateTime.Now)
+                {
+                    return new ValidationResult(false, "Некоректная дата");
+                }
             }
 
             return ValidationResult.ValidResult;

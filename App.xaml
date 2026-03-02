@@ -19,6 +19,10 @@
                 <Setter Property="Margin" Value="5"/>
                 <Setter Property="AutomationProperties.Name" Value=""/>
             </Style>
+            <Style TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignDatePicker}">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="AutomationProperties.Name" Value=""/>
+            </Style>
             <Style TargetType="ListView" BasedOn="{StaticResource MaterialDesignListView}">
                 <Setter Property="Margin" Value="5"/>
             </Style>

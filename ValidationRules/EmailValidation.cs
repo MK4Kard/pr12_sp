@@ -11,6 +11,8 @@ namespace pr12_vUser.ValidationRules
 {
     public class EmailValidation : ValidationRule
     {
+        public bool IsEdit { get; set; } = false;
+
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             var input = (value ?? "").ToString().Trim();
@@ -24,7 +26,7 @@ namespace pr12_vUser.ValidationRules
 
             bool mailUnique = db.Users.Any(m => m.Email.ToLower() == input.ToLower());
 
-            if (mailUnique)
+            if (mailUnique && !IsEdit)
             {
                 return new ValidationResult(false, "Такая почта уже существует");
             }
