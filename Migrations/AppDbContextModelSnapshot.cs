@@ -22,6 +22,27 @@ namespace pr12_vUser.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("pr12_vUser.Data.InterestGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InterestGroups");
+                });
+
             modelBuilder.Entity("pr12_vUser.Data.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -76,6 +97,27 @@ namespace pr12_vUser.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("pr12_vUser.Data.UserInterestGroup", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InterestGroupId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsModerator")
+                        .HasColumnType("bit");
+
+                    b.Property<DateOnly>("JoinedAt")
+                        .HasColumnType("date");
+
+                    b.HasKey("UserId", "InterestGroupId");
+
+                    b.HasIndex("InterestGroupId");
+
+                    b.ToTable("UserInterestGroups");
+                });
+
             modelBuilder.Entity("pr12_vUser.Data.UserProfile", b =>
                 {
                     b.Property<int>("Id")
@@ -118,6 +160,25 @@ namespace pr12_vUser.Migrations
                     b.Navigation("Role");
                 });
 
+            modelBuilder.Entity("pr12_vUser.Data.UserInterestGroup", b =>
+                {
+                    b.HasOne("pr12_vUser.Data.InterestGroup", "InterestGroup")
+                        .WithMany("UserInterestGroups")
+                        .HasForeignKey("InterestGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("pr12_vUser.Data.User", "User")
+                        .WithMany("UserInterestGroups")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("InterestGroup");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("pr12_vUser.Data.UserProfile", b =>
                 {
                     b.HasOne("pr12_vUser.Data.User", "User")
@@ -129,6 +190,11 @@ namespace pr12_vUser.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("pr12_vUser.Data.InterestGroup", b =>
+                {
+                    b.Navigation("UserInterestGroups");
+                });
+
             modelBuilder.Entity("pr12_vUser.Data.Role", b =>
                 {
                     b.Navigation("Users");
@@ -136,6 +202,8 @@ namespace pr12_vUser.Migrations
 
             modelBuilder.Entity("pr12_vUser.Data.User", b =>
                 {
+                    b.Navigation("UserInterestGroups");
+
                     b.Navigation("UserProfile");
                 });
 #pragma warning restore 612, 618

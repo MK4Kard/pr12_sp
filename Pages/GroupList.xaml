@@ -1,0 +1,54 @@
+﻿<Page x:Class="pr12_vUser.Pages.GroupList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:pr12_vUser.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"     
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
+      Title="GroupList">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Grid.ColumnSpan="2">
+            <Button Click="back">Назад</Button>
+            <Button Click="add">Добавить</Button>
+            <Button Click="remove">Удалить</Button>
+        </StackPanel>
+        <ListView Grid.Row="1"
+              ItemsSource="{Binding service.InterestGroups}"
+              MouseDoubleClick="edit"
+              SelectedItem="{Binding current}"  Foreground="#FF9DFF50">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Foreground="Black">
+                    <Run Text="Группа: "/>
+                    <Run Text="{Binding Title}"/>
+                    </TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView Grid.Row="1" Grid.Column="1"
+          ItemsSource="{Binding current.UserInterestGroups}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock>
+                            <Run Text="{Binding User.Login}" Foreground="Black"/>
+                            <Run Text="Модератор -" Foreground="Black"/>
+                            <Run Text="{Binding IsModerator}" Foreground="Black"/>
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

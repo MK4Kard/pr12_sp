@@ -8,6 +8,7 @@
       xmlns:validators="clr-namespace:pr12_vUser.ValidationRules"
       xmlns:converters="clr-namespace:pr12_vUser.Converters"
       xmlns:services="clr-namespace:pr12_vUser.Services"
+      xmlns:controls="clr-namespace:pr12_vUser.Data"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="UserFormPage">
@@ -84,8 +85,9 @@
             <StackPanel Margin="0 10 0 0">
                 <Label>Роль</Label>
                 <ComboBox ItemsSource="{Binding Source={StaticResource rService}, Path=Roles}"
-                          DisplayMemberPath="Title" Margin="5"                          
-                          SelectedItem="{Binding Role}"
+                          DisplayMemberPath="Title" Margin="5"
+                          SelectedValuePath="Id"
+                          SelectedItem="{Binding RoleId}"
                           m:HintAssist.Hint="Выберите роль"/>
             </StackPanel>
         </StackPanel>
@@ -122,12 +124,13 @@
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <Label>Дата рождения</Label>
-                    <DatePicker Margin="5" x:Name="birthday">
+                    <DatePicker Margin="5" x:Name="birthday" DisplayDateStart="1970.01.01" DisplayDateEnd="2026.04.30"
+                                m:HintAssist.Hint="Выберите дату">
                         <DatePicker.SelectedDate>
                             <Binding Path="UserProfile.Birthday" UpdateSourceTrigger="PropertyChanged"
                                      Converter="{StaticResource dateConventer}">
                                 <Binding.ValidationRules>
-                                    <validators:DateValidation x:Name="date"
+                                    <validators:DateValidation
                                         ValidatesOnTargetUpdated="True"/>
                                 </Binding.ValidationRules>
                             </Binding>
@@ -145,7 +148,7 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.ColumnSpan="2" VerticalAlignment="Bottom">
-            <Button x:Name="saveBtn" Content="Сохранить в БД" Click="save">
+            <Button Content="Сохранить в БД" Click="save">
                 <Button.IsEnabled>
                     <MultiBinding Converter="{StaticResource boolConverter}">
                         <Binding ElementName="pass" Path="(Validation.HasError)"/>

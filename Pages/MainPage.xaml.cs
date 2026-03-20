@@ -3,7 +3,9 @@ using pr12_vUser.Services;
 using pr12_vUser.ValidationRules;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,10 +23,24 @@ namespace pr12_vUser.Pages
     /// <summary>
     /// Логика взаимодействия для MainPage.xaml
     /// </summary>
-    public partial class MainPage : Page
+    public partial class MainPage : Page, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
         public UsersService service { get; set; } = new();
-        public User? user { get; set; } = null;
+        private User? _user;
+        public User? user
+        {
+            get => _user;
+            set
+            {
+                if (_user != value)
+                {
+                    _user = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public MainPage()
         {
             InitializeComponent();
@@ -61,6 +77,26 @@ namespace pr12_vUser.Pages
         private void roles(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new RoleList());
+        }
+
+        private void groups(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new GroupList());
+        }
+
+        public void userToGroup(object sender, EventArgs e)
+        {
+            if (user == null)
+            {
+                MessageBox.Show("Выберите элемент из списка!");
+                return;
+            }
+            NavigationService.Navigate(new GroupUserPage(user));
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string? propName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
     }
 }

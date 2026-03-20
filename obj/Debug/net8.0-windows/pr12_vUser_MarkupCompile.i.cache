@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\DNS\OneDrive\Рабочий стол\Доделывать\pr12_trpo_orig\App.xaml
-5-99785431
+8-1444460871
 221065035267
-39-516847593
+502078262233
 231485286406
-MainWindow.xaml;Pages\MainPage.xaml;Pages\RoleForm.xaml;Pages\RoleList.xaml;Pages\UserFormPage.xaml;
+MainWindow.xaml;Pages\GroupForm.xaml;Pages\GroupList.xaml;Pages\GroupUserPage.xaml;Pages\MainPage.xaml;Pages\RoleForm.xaml;Pages\RoleList.xaml;Pages\UserFormPage.xaml;
 
 True
 

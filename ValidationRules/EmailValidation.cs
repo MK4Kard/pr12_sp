@@ -17,11 +17,6 @@ namespace pr12_vUser.ValidationRules
         {
             var input = (value ?? "").ToString().Trim();
 
-            /*if (input.Length < 5)
-            {
-                return new ValidationResult(false, "Логин должен содержать не менее 5 символов");
-            }*/
-
             var db = BaseDbService.Instance.Context;
 
             bool mailUnique = db.Users.Any(m => m.Email.ToLower() == input.ToLower());

@@ -44,6 +44,7 @@ namespace pr12_vUser.Services
             var users = _db.Users
                 .Include(u => u.UserProfile)
                 .Include(u => u.Role)
+                .Include(u => u.UserInterestGroups)
                 .ToList();
 
             Users.Clear();
@@ -52,6 +53,7 @@ namespace pr12_vUser.Services
             {
                 Users.Add(user);
             }
+            var a = 1;
         }
 
         public void Remove(User user)

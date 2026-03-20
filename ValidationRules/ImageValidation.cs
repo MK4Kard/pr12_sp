@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -14,13 +15,21 @@ namespace pr12_vUser.ValidationRules
         {
             var input = (value ?? "").ToString().Trim();
 
-            //int endIndex = input.LastIndexOf(".png");
-            //string type = input.Substring(input.Length, endIndex);
+            if (!input.IsNullOrEmpty())
+            {
+                if (input.Length < 5)
+                {
+                    return new ValidationResult(false, "Длина пути должна составлять минимум 5 символов");
+                }
 
-            //if (type != ".png")
-            //{
-            //    return new ValidationResult(false, "Неверная ссылка на изображение");
-            //}
+                //int endIndex = input.LastIndexOf(".png");
+                //string type = input.Substring(input.Length, endIndex);
+
+                //if (type != ".png")
+                //{
+                //    return new ValidationResult(false, "Неверная ссылка на изображение");
+                //} 
+            }
 
             return ValidationResult.ValidResult;
         }

@@ -42,7 +42,14 @@ namespace pr12_vUser.Pages
                     panel.Visibility = Visibility.Visible;
                     openBtn.Content = "Убрать профиль";
                 }
+            } else
+            {
+                _user = new();
+                _user.RoleId = 1;
             }
+
+            if (_user.UserProfile == null)
+                _user.UserProfile = new();
 
             DataContext = _user;
         }
@@ -50,9 +57,14 @@ namespace pr12_vUser.Pages
         private void save(object sender, RoutedEventArgs e)
         {
             if (isEdit)
+            {
                 _service.Commit();
+            }
             else
+            {
                 _service.Add(_user);
+            }
+
             NavigationService.GoBack();
         }
 
@@ -66,13 +78,11 @@ namespace pr12_vUser.Pages
             if (panel.Visibility == Visibility.Hidden)
             {
                 panel.Visibility = Visibility.Visible;
-                _user.UserProfile = new();
                 openBtn.Content = "Убрать профиль";
             }
             else
             {
                 panel.Visibility = Visibility.Hidden;
-                _user.UserProfile = null;
                 openBtn.Content = "Добавить профиль";
             }
         }
